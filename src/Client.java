@@ -8,11 +8,11 @@ public class Client {
             /**
              * Клиент предполагает, что сервер ожидает запроса на подключение на serverPort порт через TCP.
              */
-            int serverPort = 4021;
-            InetAddress host = InetAddress.getByName("localhost");
+            int serverPort = 80;
+            InetAddress host = InetAddress.getByName("www.math.spbu.ru/");
             System.out.println("Connecting to server on port " + serverPort);
 
-            Socket socket = new Socket(host,serverPort);
+            Socket socket = new Socket(host, serverPort);
             //Socket socket = new Socket("127.0.0.1", serverPort);
             System.out.println("Just connected to " + socket.getRemoteSocketAddress());
             /**
@@ -21,25 +21,24 @@ public class Client {
              * а выходной поток для передачи данных к разъему на конце сервера канала.
              */
             PrintWriter toServer =
-                    new PrintWriter(socket.getOutputStream(),true); //true - автоматический сброс буферов
+                    new PrintWriter(socket.getOutputStream(), true); //true - автоматический сброс буферов
             BufferedReader fromServer =
                     new BufferedReader(
                             new InputStreamReader(socket.getInputStream()));
-            toServer.println("Hello from " + socket.getLocalSocketAddress());
-            String line = fromServer.readLine();
-            System.out.println("Client received: " + line + " from Server");
-
+            toServer.println("C://Users//1111111//IdeaProjects//Server//src//indexHTML");
+            String line;
+            while ((line = fromServer.readLine()) != null) {
+                System.out.println(line);
+            }
             toServer.close();
             fromServer.close();
             socket.close();
-        }
-        catch(UnknownHostException ex) {
+        } catch (UnknownHostException ex) {
             ex.printStackTrace();
         }
         /**
          * Socket бросает ioexception, если он не может сделать соединение
-         */
-        catch(IOException e){
+         */ catch (IOException e) {
             e.printStackTrace();
         }
     }
